@@ -10,6 +10,7 @@ install: true
 branches:
   only:
   - master
+  - /^.*RELEASE$/
 
 cache:
   directories:
