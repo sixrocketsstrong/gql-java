@@ -17,8 +17,7 @@ cache:
     - $HOME/.m2/repository
 
 before_deploy:
-  - curl -L -o /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-  - chmod 755 /usr/bin/jq
+  - apt-get install -y jq
   - FINAL_VERSION=$(docker run --rm -v `pwd`:/repo gittools/gitversion:latest-linux /repo /nocache | jq -r '.SemVer')
   - mvn versions:set -DnewVersion=$FINAL_VERSION
   - mvn package -Dmaven.test.skip=true
