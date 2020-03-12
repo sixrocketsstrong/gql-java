@@ -20,7 +20,10 @@ cache:
     - $HOME/.m2/repository
 
 before_install:
-  - sudo apt-get install -y jq
+  - git fetch --unshallow || true # Travis might do a shallow clone, but GitVersion needs the full history including branches and tags
+  - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  - git fetch origin
+  - git branch master origin/master || true # GitVersion seems to require a local "master" branch these days. That's a bug, but oh well.
 
 before_deploy:
   - FINAL_VERSION=$(docker run --rm -v `pwd`:/repo gittools/gitversion:latest-linux /repo /nocache | jq -r '.SemVer')
