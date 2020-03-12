@@ -20,7 +20,7 @@ cache:
     - $HOME/.m2/repository
 
 before_deploy:
-  - mvn versions:set -DnewVersion=$TRAVIS_TAG
+  - mvn versions:set -DnewVersion=`echo -e "$TRAVIS_TAG" | sed -e "s/\.RELEASE//g"`
   - mvn package -Dmaven.test.skip=true
 
 deploy:
