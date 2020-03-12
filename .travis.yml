@@ -16,8 +16,10 @@ cache:
   directories:
     - $HOME/.m2/repository
 
+before_install:
+  - sudo apt-get install -y jq
+
 before_deploy:
-  - apt-get install -y jq
   - FINAL_VERSION=$(docker run --rm -v `pwd`:/repo gittools/gitversion:latest-linux /repo /nocache | jq -r '.SemVer')
   - mvn versions:set -DnewVersion=$FINAL_VERSION
   - mvn package -Dmaven.test.skip=true
