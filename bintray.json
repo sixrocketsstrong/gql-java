@@ -1,0 +1,35 @@
+{
+  "package": {
+    "name": "${project.name}",
+    "repo": "maven",
+    "subject": "sixrocketsstrong",
+    "website_url": "${project.url}",
+    "issue_tracker_url": "${project.url}/issues",
+    "vcs_url": "${project.url}",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "labels": [
+      "graphql",
+      "client"
+    ],
+    "public_download_numbers": true,
+    "public_stats": true
+  },
+  "version": {
+    "name": "${project.version}",
+    "released": "${maven.build.timestamp}",
+    "vcs_tag": "${project.version}"
+  },
+  "files": [
+    {
+      "includePattern": "pom.xml",
+      "uploadPattern": "com/sixrockets/gql-java/${project.version}/gql-java-${project.version}.pom"
+    },
+    {
+      "includePattern": "target/(.*\.jar)",
+      "uploadPattern": "com/sixrockets/gql-java/${project.version}/$1"
+    }
+  ],
+  "publish": true
+}
