@@ -16,13 +16,18 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-package com.sixrockets;
+package com.sixrockets.gql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 public class GQLTest {
+
+	private static final Fragment bipBeepBoop = GQL.fragment("bipBeepBoop", "Baz")
+		.select("bip")
+		.select("beep")
+		.select("boop");
 
 	@Test
 	void emptyQuery() {
@@ -32,9 +37,9 @@ public class GQLTest {
 	@Test
 	void queryWithNoArgNoSelect() {
 		assertEquals(
-			"query foo {\nbar\n}\n",
+			"query foo {\nbar\n}",
 			GQL.query("foo")
-				.simpleField("bar")
+				.op("bar")
 				.toString()
 		);
 	}
@@ -42,13 +47,36 @@ public class GQLTest {
 	@Test
 	void queryWithOneArgNoSelect() {
 		assertEquals(
-			"query foo($baz: String) {\nbar(baz: $baz)\n}\n",
+			"query foo($baz: String) {\nbar(baz: $baz)\n}",
 			GQL.query("foo")
-				.startField("bar")
-						.argument("baz")
-						.end()
+				.opWith("bar")
+					.variable("baz", Type.nullable("String"))
 				.end()
-				.toString()
+			.toString()
+		);
+	}
+
+	@Test
+	void queryWithSelection() {
+		assertEquals(
+			"query foo {\nbar {\nbaz\n}\n}",
+			GQL.query("foo")
+				.opWith("bar")
+					.select("baz")
+				.end()
+			.toString()
+		);
+	}
+
+	@Test
+	void queryWithFragment() {
+		assertEquals(
+			"query foo {\nbar {\n...bipBeepBoop\n}\n}\nfragment bipBeepBoop on Baz {\nbip\nbeep\nboop\n}",
+			GQL.query("foo")
+				.opWith("bar")
+					.fragment(bipBeepBoop)
+				.end()
+			.toString()
 		);
 	}
 }

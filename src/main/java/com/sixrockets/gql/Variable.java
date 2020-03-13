@@ -16,35 +16,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-package com.sixrockets;
+package com.sixrockets.gql;
 
-import com.sixrockets.GQL.Field;
+import lombok.Builder;
+import lombok.Getter;
 
-import java.util.List;
-import java.util.stream.Collectors;
+@Builder
+@Getter
+public class Variable<T> {
+  private String name;
+  private Type type;
+	private String variableReference;
+	private T value;
 
-public interface FieldContainer<T extends FieldContainer<?>> {
-
-	public GQL getRoot();
-
-	public List<Field> getFields();
-
-	public default T simpleField(String name) {
-		return (T) startField(name).end();
-	}
-
-	public default Field startField(String name) {
-		Field newField = new Field().setRoot(getRoot()).setName(name).setParent(this);
-		getFields().add(newField);
-		return newField;
-	}
-
-	public default void addFields(StringBuilder builder) {
-		if (!getFields().isEmpty()) {
-			builder.append(getFields().stream()
-					.map(f -> f.toString())
-					.collect(Collectors.joining("\n", " {\n", "\n}\n"))
-			);
+	public String toString() {
+		if (null == value) {
+			return name + ": $" + variableReference;
+		} else if (value instanceof String) {
+			return name + ": \"" + value.toString() + "\"";
+		} else {
+			return name + ": " + value.toString();
 		}
 	}
 }
