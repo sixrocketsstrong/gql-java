@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 
 @SuperBuilder(toBuilder = true)
 @Getter
-public class Field<T> extends FieldsAndVariables<T, Field<T>> {
+public class Field<T> extends FieldsAndVariables<T, Field> {
 
 	private String name;
 
