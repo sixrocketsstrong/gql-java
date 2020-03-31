@@ -21,7 +21,7 @@ import graphql.language.VariableReference;
 public class GraphQLJavaUtils {
 
 	public static GQL queryFromField(Field field, OperationDefinition def, List<FragmentDefinition> fragments) {
-		GQL val = GQL.query();
+		GQL val = (def.getOperation().equals(OperationDefinition.Operation.QUERY)) ? GQL.query() : GQL.mutation();
 		Operation op = val.opWith(field.getName(), field.getAlias());
 
 		addArguments(op, field, def);
