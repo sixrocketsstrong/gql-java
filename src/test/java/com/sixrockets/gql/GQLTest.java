@@ -18,6 +18,7 @@ under the License.
 */
 package com.sixrockets.gql;
 
+import static com.sixrockets.gql.FileAsserts.assertContentsEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -36,8 +37,8 @@ public class GQLTest {
 
 	@Test
 	void queryWithNoArgNoSelect() {
-		assertEquals(
-			"query foo {\nbar\n}",
+		assertContentsEquals(
+			"queryWithNoArgNoSelect.graphql",
 			GQL.query("foo")
 				.op("bar")
 				.toString()

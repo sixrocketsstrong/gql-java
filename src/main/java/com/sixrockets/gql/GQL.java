@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class GQL {
@@ -57,7 +58,7 @@ public class GQL {
 	}
 
 	public Operation opWith(String operation, String alias) {
-		Operation op = operation(operation);
+		Operation op = operation(operation, alias);
 		op.parent = this;
 		operations.add(op);
 		return op;
@@ -93,6 +94,14 @@ public class GQL {
 		builtQuery = builder.toString();
 
 		return builtQuery;
+	}
+
+	public static GQL query() {
+		return query("q" + UUID.randomUUID().toString().replace("-", ""));
+	}
+
+	public static GQL mutation() {
+		return mutation("m" + UUID.randomUUID().toString().replace("-", ""));
 	}
 
 	public static GQL query(String opName) {
