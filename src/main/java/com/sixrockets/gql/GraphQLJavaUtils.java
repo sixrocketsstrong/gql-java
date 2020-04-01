@@ -85,7 +85,11 @@ public class GraphQLJavaUtils {
 		if (type instanceof ListType) {
 			return "[" + typeString(((ListType) type).getType()) + "]";
 		} else {
-			return ((TypeName) type).getName();
+			if (type instanceof NonNullType) {
+				return typeString(((NonNullType) type).getType()) + "!";
+			} else {
+				return ((TypeName) type).getName();
+			}
 		}
 	}
 }
