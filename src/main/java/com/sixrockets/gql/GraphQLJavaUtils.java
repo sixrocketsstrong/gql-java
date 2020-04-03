@@ -30,6 +30,7 @@ public class GraphQLJavaUtils {
 	}
 
 	public static void addSelections(FieldsAndVariables<?, ?> dest, SelectionSetContainer<?> selSet, OperationDefinition def, List<FragmentDefinition> fragments) {
+		if (selSet.getSelectionSet() == null) return;
 		selSet.getSelectionSet().getSelections().stream().forEach(selection -> {
 			if (selection instanceof NamedNode) {
 				if (selection instanceof FragmentSpread) {
