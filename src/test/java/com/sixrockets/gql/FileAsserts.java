@@ -1,11 +1,8 @@
 package com.sixrockets.gql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import lombok.SneakyThrows;
-
 import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.nio.charset.Charset;
 
