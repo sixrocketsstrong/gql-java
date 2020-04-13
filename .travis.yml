@@ -1,4 +1,4 @@
-jdk: openjdk8
+jdk: openjdk13
 language: java
 sudo: false
 
@@ -12,8 +12,8 @@ install: true
 
 branches:
   only:
-  - master
-  - /^.*\.RELEASE$/
+    - master
+    - /^.*\.RELEASE$/
 
 cache:
   directories:
@@ -26,10 +26,10 @@ before_deploy:
 deploy:
   # Deploy releases to bintray
   - provider: bintray
-    skip_cleanup: true        # required to prevent Travis from cleaning the workspace before deployment
+    skip_cleanup: true # required to prevent Travis from cleaning the workspace before deployment
     file: target/bintray.json # defines the Bintray project to deploy to, and what to deploy and where to.
     user: bangroot # fill in your account name
-    key: $BINTRAY_API_KEY            # reference to your Bintray API key
+    key: $BINTRAY_API_KEY # reference to your Bintray API key
     on: # only deploy when
       repo: sixrocketsstrong/gql-java # only for this repo
       tags: true
