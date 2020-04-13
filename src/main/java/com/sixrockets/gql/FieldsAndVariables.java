@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuperBuilder(toBuilder = true)
-public abstract class FieldsAndVariables<T, E> {
+public abstract class FieldsAndVariables<T, E extends FieldsAndVariables<T, E>> {
 
 	T parent;
 	@Getter

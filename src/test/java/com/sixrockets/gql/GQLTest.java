@@ -20,7 +20,6 @@ package com.sixrockets.gql;
 
 import static com.sixrockets.gql.FileAsserts.assertContentsEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 public class GQLTest {
